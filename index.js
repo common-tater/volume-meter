@@ -11,7 +11,7 @@ function VolumeMeter (context, opts, onenterframe) {
   opts.tweenOut = opts.tweenOut || opts.tweenIn * 3
 
   var buffer, self = this
-  var next, tween, last = 0
+  var range, next, tween, last = 0
   var analyser = context.createAnalyser()
 
   analyser.stop = function () {
@@ -27,7 +27,8 @@ function VolumeMeter (context, opts, onenterframe) {
     if (analyser.ended) return
 
     analyser.getByteTimeDomainData(buffer)
-    next = Math.floor(getDynamicRange(buffer) / 2.55)
+    range = getDynamicRange(buffer) * (Math.E - 1)
+    next = Math.floor(Math.log1p(range) * 100)
     tween = next > last ? opts.tweenIn : opts.tweenOut
     next = last = last + (next - last) / tween
 
@@ -51,5 +52,5 @@ function getDynamicRange(buffer) {
     else if (sample > max) max = sample
   }
 
-  return max - min
+  return (max - min) / 255
 }
