@@ -1,6 +1,6 @@
 {
   "name": "volume-meter",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Renders the dynamic range of a MediaStream waveform slice as a percentage in a requestAnimationFrame callback",
   "keywords": "MediaStream volume meter dynamic range",
   "devDependencies": {
