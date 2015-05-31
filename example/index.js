@@ -23,7 +23,7 @@ getusermedia({ audio: true, video: false }, function (err, stream) {
   
   var src = ctx.createMediaStreamSource(stream)
   src.connect(split)
-  src.connect(ctx.destination)
+  src.connect(ctx.createGain())
 
   stream.onended = function () {
     leftmeter.stop()
