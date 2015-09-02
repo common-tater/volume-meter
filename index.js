@@ -1,3 +1,5 @@
+var raf = require('raf');
+
 module.exports = VolumeMeter
 
 function VolumeMeter (context, opts, onenterframe) {
@@ -11,11 +13,12 @@ function VolumeMeter (context, opts, onenterframe) {
   opts.tweenOut = opts.tweenOut || opts.tweenIn * 3
 
   var buffer, self = this
-  var range, next, tween, last = 0
+  var range, next, tween, handle, last = 0
   var analyser = context.createAnalyser()
 
   analyser.stop = function () {
     this.ended = true
+    raf.cancel(handle)
   }
 
   // the fftSize property governs the sample size even
@@ -33,11 +36,11 @@ function VolumeMeter (context, opts, onenterframe) {
     next = last = last + (next - last) / tween
 
     onenterframe(next)
-    requestAnimationFrame(render)
+    handle = raf(render)
   }
 
   render()
-  
+
   return analyser
 }
 
