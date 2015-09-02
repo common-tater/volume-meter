@@ -12,5 +12,8 @@
     "example": "browserify example > example/build.js && node example/server.js"
   },
   "repository": "https://github.com/jessetane/volume-meter",
-  "author": "Jesse Tane <jesse.tane@gmail.com>"
+  "author": "Jesse Tane <jesse.tane@gmail.com>",
+  "dependencies": {
+    "raf": "^3.1.0"
+  }
 }
